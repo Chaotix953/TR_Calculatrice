@@ -1,11 +1,7 @@
 import tkinter
 from functools import partial
 
-police = ("Courrier", 20)
-
 class Calculatrice:
-
-    expr = []
 
     def __init__(self, master=tkinter.Tk()):
         self.master = master
@@ -16,7 +12,7 @@ class Calculatrice:
 
     def configure(self):
         self.master.title("calculatrice")
-        self.master.geometry("400x600")
+        self.master.geometry("400x600+800+10")
 
     def create_frame(self):
         self.frame0 = tkinter.Frame(self.master, bg="yellow", bd=20)
@@ -26,8 +22,7 @@ class Calculatrice:
         self.frame1.pack(side=tkinter.TOP, fill=tkinter.X)
 
         self.frame2 = tkinter.Frame(self.frame0, bg="red")
-        self.frame2.pack(side=tkinter.TOP, fill=tkinter.X, pady=20, ipady=100)
-
+        self.frame2.pack(side=tkinter.TOP, fill=tkinter.X, pady=20, ipady=10)
 
     def create_button(self):
 
@@ -38,71 +33,69 @@ class Calculatrice:
         j=9
         for y in range(0, 3):
             for x in reversed(range(0, 3)):
-                Chiffre(self.frame2, j, x, y)
+                Bouton(self.frame2, j, x, y)
                 j-=1
         
-        c = 5
-        Chiffre(self.frame2, "+", c, 0)
-        Chiffre(self.frame2, "-", c, 1)
-        Chiffre(self.frame2, "*", c, 2)
-        Chiffre(self.frame2, "/", c, 3)
-        BoutonEgal(self.frame2)
+        c = 3
+        Bouton(self.frame2, "+", c, 0)
+        Bouton(self.frame2, "-", c, 1)
+        Bouton(self.frame2, "*", c, 2)
+        Bouton(self.frame2, "/", c, 3)
+        Bouton(self.frame2, "=", c, 4)
 
-class Chiffre:
+class Bouton:
 
     expr = []
-
+    
     def __init__(self, master, chfr, x, y):
         self.chfr = chfr
-        self.btn = tkinter.Button(master, text=str(chfr), command=partial(self.add_chfr_to_expr, self.chfr))
+        self.btn = tkinter.Button(master, text=str(chfr), command=partial(self.add_to_expr, self.chfr))
         self.btn.grid(column=x, row=y, ipadx=10, ipady=10, padx=3, pady=3)
 
     @classmethod
-    def add_chfr_to_expr(cls, num):
+    def add_to_expr(cls, num):
+        cls.expr.append(num)
+        Calculate.calculer()
 
-        Calculatrice.expr.append(num)
-        print(Calculatrice.expr)
+class Calculate:
 
+    resultat = 0
 
-class BoutonEgal():
-    def __init__(self, master):
-        self.resultat = 0
-        self.expr = Calculatrice.expr
-        self.nombres = []
-        self.btn = tkinter.Button(master, text='=', command=self.calculer)
-        self.btn.grid(row=4, column=5, ipadx=10, ipady=10, padx=3, pady=3)
-
-    def somme(self):
-        total = 0
-        for x in self.nombres:
-            total+=x
-        return total
-
-    def differance(self):
-        dif = self.nombres[-1] - self.nombres[0]
-        return dif
-
-    def multi(self):
-        return self.nombres[0]*self.nombres[-1]
-
-    def div(self):
-        return self.nombres[0]/self.nombres[-1]
-
-    def calculer(self):
-        print("en cours de develloppement")
-        resultat = 0
-        for x in self.expr:
-            if x in [1,2,3,4,5,6,7,8,9,0]:
-                self.nombres.append(x)
-            else:
-                if x == '+':
-                    resultat = self.somme()
-                elif x == '-':
-                    resultat = self.differance()
-                elif x == '*':
-                    resultat = self.multi()
-                elif x == '/':
-                    resultat = self.div()
-        print(resultat)
-        return resultat
+    @classmethod
+    def calculer(cls):
+        print(Bouton.expr)
+        for x in Bouton.expr:
+            if x == "+":
+                cls.resultat = cls.addition()
+            if x == "-":
+                cls.resultat = cls.soustraction()
+            if x == "*":
+                cls.resultat = cls.multiplication()
+            if x == "/":
+                cls.resultat = cls.division()
+            if x == "=":
+                print(cls.resultat)
+                cls.reset()
         
+    @classmethod
+    def addition(cls):
+        return Bouton.expr[0] + Bouton.expr[-2]
+
+    @classmethod
+    def soustraction(cls):
+        return Bouton.expr[0] - Bouton.expr[-2]
+
+    @classmethod
+    def multiplication(cls):
+        return Bouton.expr[0] * Bouton.expr[-2]
+
+    @classmethod
+    def division(cls):
+        return Bouton.expr[0] / Bouton.expr[-2]
+
+    @classmethod
+    def reset(cls):
+        Bouton.expr.clear()
+
+    
+
