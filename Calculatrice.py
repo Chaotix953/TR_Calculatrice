@@ -69,7 +69,37 @@ class Chiffre:
 class BoutonEgal():
     def __init__(self, master):
         self.expr = Calculatrice.expr
+        self.nombres = []
         self.btn = tkinter.Button(master, text='=', command=self.calculer)
+        self.btn.pack()
+
+    def somme(self):
+        total = 0
+        for x in self.nombres:
+            total+=x
+        return total
+
+    def differance(self):
+        dif = self.nombres[-1] - self.nombres[0]
+        return dif
+
+    def multi(self):
+        return self.nombres[0]*self.nombres[-1]
+
+    def div(self):
+        return self.nombres[0]/self.nombres[-1]
 
     def calculer(self):
-        for x in self.expr
+        for x in self.expr:
+            if x in [1, 2,3,4,5,6,7,8,9,0]:
+                nombre.append(x)
+            else:
+                if x == '+':
+                    resultat = self.somme()
+                elif x == '-':
+                    resultat = self.differance()
+                elif x == '*':
+                    resultat = self.multi()
+                else:
+                    resultat = self.div()
+        return resultat
