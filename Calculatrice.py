@@ -1,5 +1,6 @@
 import tkinter
-from functools import partial
+from Bouton import Bouton
+from Calculer import Calculer
 
 class Calculatrice:
 
@@ -26,9 +27,8 @@ class Calculatrice:
 
     def create_button(self):
 
-        self.label1_variable = tkinter.StringVar()
-        self.label1 = tkinter.Label(self.frame1, textvariable=self.label1_variable)
-        self.label1.pack(expand=tkinter.YES, fill=tkinter.X, ipadx=100, ipady=10, padx=10, pady=10)
+        self.label1 = tkinter.Label(self.frame1, textv="en cours de develloppement")
+        self.label1.pack(expand=tkinter.YES, fill=tkinter.X, ipadx=30, ipady=10, padx=10, pady=10)
 
         j=9
         for y in range(0, 3):
@@ -43,59 +43,10 @@ class Calculatrice:
         Bouton(self.frame2, "/", c, 3)
         Bouton(self.frame2, "=", c, 4)
 
-class Bouton:
 
-    expr = []
-    
-    def __init__(self, master, chfr, x, y):
-        self.chfr = chfr
-        self.btn = tkinter.Button(master, text=str(chfr), command=partial(self.add_to_expr, self.chfr))
-        self.btn.grid(column=x, row=y, ipadx=10, ipady=10, padx=3, pady=3)
 
-    @classmethod
-    def add_to_expr(cls, num):
-        cls.expr.append(num)
-        Calculate.calculer()
 
-class Calculate:
 
-    resultat = 0
-
-    @classmethod
-    def calculer(cls):
-        print(Bouton.expr)
-        for x in Bouton.expr:
-            if x == "+":
-                cls.resultat = cls.addition()
-            if x == "-":
-                cls.resultat = cls.soustraction()
-            if x == "*":
-                cls.resultat = cls.multiplication()
-            if x == "/":
-                cls.resultat = cls.division()
-            if x == "=":
-                print(cls.resultat)
-                cls.reset()
-        
-    @classmethod
-    def addition(cls):
-        return Bouton.expr[0] + Bouton.expr[-2]
-
-    @classmethod
-    def soustraction(cls):
-        return Bouton.expr[0] - Bouton.expr[-2]
-
-    @classmethod
-    def multiplication(cls):
-        return Bouton.expr[0] * Bouton.expr[-2]
-
-    @classmethod
-    def division(cls):
-        return Bouton.expr[0] / Bouton.expr[-2]
-
-    @classmethod
-    def reset(cls):
-        Bouton.expr.clear()
 
     
 
