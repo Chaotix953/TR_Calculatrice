@@ -40,16 +40,13 @@ class Calculatrice:
             for x in reversed(range(0, 3)):
                 Chiffre(self.frame2, j, x, y)
                 j-=1
-
-
-    """
-    button_0 = tkinter.Button(frame2, text="0")
-    button_0.pack(side=tkinter.RIGHT, ipadx=20, ipady=20, padx=5, pady=5)
-
-    button_1 = tkinter.Button(frame2, text="1")
-    button_1.pack(side=tkinter.RIGHT, ipadx=20, ipady=20, padx=5, pady=5)
-    """
-
+        
+        c = 5
+        Chiffre(self.frame2, "+", c, 0)
+        Chiffre(self.frame2, "-", c, 1)
+        Chiffre(self.frame2, "*", c, 2)
+        Chiffre(self.frame2, "/", c, 3)
+        BoutonEgal(self.frame2)
 
 class Chiffre:
 
@@ -62,16 +59,18 @@ class Chiffre:
 
     @classmethod
     def add_chfr_to_expr(cls, num):
+
         Calculatrice.expr.append(num)
         print(Calculatrice.expr)
 
 
 class BoutonEgal():
     def __init__(self, master):
+        self.resultat = 0
         self.expr = Calculatrice.expr
         self.nombres = []
         self.btn = tkinter.Button(master, text='=', command=self.calculer)
-        self.btn.pack()
+        self.btn.grid(row=4, column=5, ipadx=10, ipady=10, padx=3, pady=3)
 
     def somme(self):
         total = 0
@@ -90,9 +89,11 @@ class BoutonEgal():
         return self.nombres[0]/self.nombres[-1]
 
     def calculer(self):
+        print("en cours de develloppement")
+        resultat = 0
         for x in self.expr:
-            if x in [1, 2,3,4,5,6,7,8,9,0]:
-                nombre.append(x)
+            if x in [1,2,3,4,5,6,7,8,9,0]:
+                self.nombres.append(x)
             else:
                 if x == '+':
                     resultat = self.somme()
@@ -100,6 +101,8 @@ class BoutonEgal():
                     resultat = self.differance()
                 elif x == '*':
                     resultat = self.multi()
-                else:
+                elif x == '/':
                     resultat = self.div()
+        print(resultat)
         return resultat
+        
