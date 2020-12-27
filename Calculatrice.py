@@ -1,9 +1,11 @@
 import tkinter
-from Chiffre import Chiffre
+from functools import partial
 
 police = ("Courrier", 20)
 
 class Calculatrice:
+
+    expr = []
 
     def __init__(self, master=tkinter.Tk()):
         self.master = master
@@ -40,9 +42,6 @@ class Calculatrice:
                 j-=1
    
 
-
-
-
     """
     button_0 = tkinter.Button(frame2, text="0")
     button_0.pack(side=tkinter.RIGHT, ipadx=20, ipady=20, padx=5, pady=5)
@@ -52,5 +51,18 @@ class Calculatrice:
     """
 
 
+class Chiffre:
+
+    expr = []
+
+    def __init__(self, master, chfr, x, y):
+        self.chfr = chfr
+        self.btn = tkinter.Button(master, text=str(chfr), command=partial(self.add_chfr_to_expr, self.chfr))
+        self.btn.grid(column=x, row=y, ipadx=10, ipady=10, padx=3, pady=3)
+    
+    @classmethod
+    def add_chfr_to_expr(cls, num):
+        Calculatrice.expr.append(num)
+        print(Calculatrice.expr)
 
 
