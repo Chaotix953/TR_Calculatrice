@@ -15,19 +15,22 @@ class Calculer:
     def calculer(cls):
         print(cls.expr)
         for x in cls.expr:
-            if x == "+":
+            if str(x) == "+":
                 cls.resultat = cls.addition()
-                print(cls.resultat)
+                print("Le résultat est", cls.resultat)
+                cls.reset()
             if x == "-":
                 cls.resultat = cls.soustraction()
+                print("Le résultat est", cls.resultat)
+                cls.reset()
             if x == "*":
                 cls.resultat = cls.multiplication()
+                print("Le résultat est", cls.resultat)
+                cls.reset()
             if x == "/":
                 cls.resultat = cls.division()
-#            if x == "=":
-#                print(cls.resultat)
-#                cls.reset()
-
+                print("Le résultat est", cls.resultat)
+                cls.reset()
     @classmethod
     def addition(cls):
         return float(cls.expr[0]) + float(cls.expr[-1])
@@ -38,11 +41,11 @@ class Calculer:
 
     @classmethod
     def multiplication(cls):
-        return float(cls.expr[0]) * float(cls.expr[-2])
+        return float(cls.expr[0]) * float(cls.expr[-1])
 
     @classmethod
     def division(cls):
-        return float(cls.expr[0]) / float(cls.expr[-2])
+        return float(cls.expr[0]) / float(cls.expr[-1])
 
     @classmethod
     def reset(cls):
