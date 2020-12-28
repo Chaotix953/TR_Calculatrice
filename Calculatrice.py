@@ -1,5 +1,5 @@
 import tkinter
-from Bouton import Bouton
+from Bouton import BoutonChiffre, BoutonSign
 from Calculer import Calculer
 
 class Calculatrice:
@@ -33,20 +33,19 @@ class Calculatrice:
         j=9
         for y in range(0, 3):
             for x in reversed(range(0, 3)):
-                Bouton(self.frame2, j, x, y)
+                BoutonChiffre(self.frame2, j, x, y)
                 j-=1
-        
+
         c = 3
-        Bouton(self.frame2, "+", c, 0)
-        Bouton(self.frame2, "-", c, 1)
-        Bouton(self.frame2, "*", c, 2)
-        Bouton(self.frame2, "/", c, 3)
-        Bouton(self.frame2, "=", c, 4)
+        BoutonChiffre(self.frame2, "+", c, 0)
+        BoutonChiffre(self.frame2, "-", c, 1)
+        BoutonChiffre(self.frame2, "*", c, 2)
+        BoutonChiffre(self.frame2, "/", c, 3)
+        BoutonSign(self.frame2, "=", c, 4, Calculer.calculer)
 
 
 
 
 
 
-    
 
