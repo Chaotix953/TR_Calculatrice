@@ -4,12 +4,24 @@ class Calculer:
 
     resultat = 0
     expr = []
+    count_expr = 0
 
     @classmethod
     def add_to_expr(cls, num):
+        cls.count_expr += 1
         cls.expr.append(num)
         print(cls.expr)
-        #cls.calculer()
+        if cls.count_expr >= 2:
+            if type(cls.expr[0]) is int and type(cls.expr[1]) is int:
+                cls.expr[0] = str(cls.expr[0]) 
+                cls.expr[0] += str(cls.expr[1])
+                del cls.expr[1]
+                cls.expr[0] = int(cls.expr[0])
+            if type(cls.expr[-1]) is int and type(cls.expr[-2]) is int:
+                cls.expr[-1] = str(cls.expr[-1]) 
+                cls.expr[-1] += str(cls.expr[-2])
+                del cls.expr[-2]
+                cls.expr[-1] = int(cls.expr[-1])
 
     @classmethod
     def calculer(cls):
@@ -17,20 +29,15 @@ class Calculer:
         for x in cls.expr:
             if str(x) == "+":
                 cls.resultat = cls.addition()
-                print("Le résultat est", cls.resultat)
-                cls.reset()
             if x == "-":
                 cls.resultat = cls.soustraction()
-                print("Le résultat est", cls.resultat)
-                cls.reset()
             if x == "*":
                 cls.resultat = cls.multiplication()
-                print("Le résultat est", cls.resultat)
-                cls.reset()
             if x == "/":
                 cls.resultat = cls.division()
-                print("Le résultat est", cls.resultat)
-                cls.reset()
+        print("Le résultat est", cls.resultat)
+        cls.reset()    
+            
     @classmethod
     def addition(cls):
         return float(cls.expr[0]) + float(cls.expr[-1])
@@ -50,3 +57,5 @@ class Calculer:
     @classmethod
     def reset(cls):
         cls.expr.clear()
+        cls.count_expr = 0
+        print("CLEAR")

@@ -27,7 +27,7 @@ class Calculatrice:
 
     def create_button(self):
 
-        self.label1 = tkinter.Label(self.frame1, textv="en cours de develloppement")
+        self.label1 = tkinter.Label(self.frame1, text="en cours de develloppement")
         self.label1.pack(expand=tkinter.YES, fill=tkinter.X, ipadx=30, ipady=10, padx=10, pady=10)
 
         j=9
@@ -36,12 +36,15 @@ class Calculatrice:
                 BoutonChiffre(self.frame2, j, x, y)
                 j-=1
 
+        BoutonChiffre(self.frame2, 0, 1, 3)
+
         c = 3
         BoutonChiffre(self.frame2, "+", c, 0)
         BoutonChiffre(self.frame2, "-", c, 1)
         BoutonChiffre(self.frame2, "*", c, 2)
         BoutonChiffre(self.frame2, "/", c, 3)
         BoutonSign(self.frame2, "=", c, 4, Calculer.calculer)
+        BoutonSign(self.frame2, "CLR", c, 5, Calculer.reset)
 
 
 
