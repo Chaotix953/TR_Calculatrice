@@ -12,7 +12,7 @@ class Calculatrice:
         self.master.mainloop()
 
     def configure(self):
-        self.master.title("calculatrice")
+        self.master.title("Calculatrice")
         self.master.geometry("400x600+800+10")
 
     def create_frame(self):
@@ -25,9 +25,17 @@ class Calculatrice:
         self.frame2 = tkinter.Frame(self.frame0, bg="red")
         self.frame2.pack(side=tkinter.TOP, fill=tkinter.X, pady=20, ipady=10)
 
-    def create_button(self):
+    def update_label(self):
+        expr = ''
+        for x in Calculer.expr:
+            expr += str(x)
+        self.var_label1.set(expr)
+        self. master.after(100, self.update_label)
 
-        self.label1 = tkinter.Label(self.frame1, text="en cours de develloppement")
+    def create_button(self):
+        self.var_label1 = tkinter.StringVar()
+        self.var_label1.set('En cours de devloppement')
+        self.label1 = tkinter.Label(self.frame1, textvariable=self.var_label1)
         self.label1.pack(expand=tkinter.YES, fill=tkinter.X, ipadx=30, ipady=10, padx=10, pady=10)
 
         j=9
@@ -45,7 +53,7 @@ class Calculatrice:
         BoutonChiffre(self.frame2, "/", c, 3)
         BoutonSign(self.frame2, "=", c, 4, Calculer.calculer)
         BoutonSign(self.frame2, "CLR", c, 5, Calculer.reset)
-
+        self.master.after(100, self.update_label)
 
 
 

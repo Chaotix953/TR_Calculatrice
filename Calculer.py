@@ -11,6 +11,7 @@ class Calculer:
         cls.count_expr += 1
         cls.expr.append(num)
         print(cls.expr)
+#       Calculatrice.var_label1.set(str(cls.expr))
         if cls.count_expr >= 2:
             if type(cls.expr[0]) is int and type(cls.expr[1]) is int:
                 cls.expr[0] = str(cls.expr[0]) 
@@ -36,8 +37,9 @@ class Calculer:
             if x == "/":
                 cls.resultat = cls.division()
         print("Le résultat est", cls.resultat)
-        cls.reset()    
-            
+        #cls.reset()
+        cls.expr = str(cls.resultat)
+
     @classmethod
     def addition(cls):
         return float(cls.expr[0]) + float(cls.expr[-1])
@@ -56,6 +58,6 @@ class Calculer:
 
     @classmethod
     def reset(cls):
-        cls.expr.clear()
+        cls.expr = []
         cls.count_expr = 0
         print("CLEAR")
